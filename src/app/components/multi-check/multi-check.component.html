@@ -1,0 +1,14 @@
+<div class="content" role="main">
+  <form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+    <div class="form-check" *ngFor="let data of Data; let i=index">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" [value]="data.value" (change)="onCheckBoxChanges($event)" />
+        {{data.name}}
+      </label>
+    </div>
+    <p class="error" *ngIf="this.form.controls['funcoesArray'].errors?.['required']">
+      Checkbox is required, select atleast one value.
+    </p>
+    <input type="submit" value="Submit">
+  </form>
+</div>

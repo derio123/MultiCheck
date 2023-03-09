@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-multi-check',
+  templateUrl: './multi-check.component.html',
+  styleUrls: ['./multi-check.component.css']
 })
-export class AppComponent {
+export class MultiCheckComponent implements OnInit {
+
   title = 'app';
   form: FormGroup;
   Data: Array<any> = [
@@ -22,9 +23,12 @@ export class AppComponent {
       funcoesArray: this.fb.array([], [Validators.required]),
     })
   }
+  ngOnInit(): void { }
 
   onCheckBoxChanges(e: any) {
     const funcoesArray: FormArray = this.form.get('funcoesArray') as FormArray;
+    console.log(funcoesArray);
+    
     if (e.target.checked) {
       funcoesArray.push(new FormControl(e.target.value));
     } else {
@@ -42,4 +46,5 @@ export class AppComponent {
   submitForm() {
     console.log(this.form.value);
   }
+
 }

@@ -1,0 +1,33 @@
+<div>
+  <form [formGroup]="checkBoxForm">
+    <ng-container formArrayName="booksArray">
+      <ul>
+        <li *ngFor="let x of booksFormArray.controls; let i = index" [formGroupName]="i">
+          <em #bookType appToggleChevron class="fa fa-angle-double-right">
+            <input type="text" formControlName="type" />
+          </em>
+          <ng-container formArrayName="authors">
+            <ul [ngClass]="[ bookType.classList.contains('fa-angle-double-right') ? 'close': 'open']">
+              <li *ngFor="let y of returnAuthors(x); let j = index" [formGroupName]="j">
+                <em #authorName appToggleChevron class="fa fa-angle-double-right">
+                  <input type="text" formControlName="name" />
+                </em>
+
+                <ng-container formArrayName="select">
+                  <ul [ngClass]="[
+                    authorName.classList.contains('fa-angle-double-right') ? 'close' : 'open']">
+                    <li *ngFor="let z of returnBooks(y); let m = index">
+                      <input type="checkbox" formControlName="{{ m }}" [value]="z.value" />
+                      {{ data[i].authors[j].books[m] }}
+                    </li>
+                  </ul>
+                </ng-container>
+              </li>
+            </ul>
+          </ng-container>
+        </li>
+      </ul>
+    </ng-container>
+  </form>
+  <strong>Form's value:</strong>{{ checkBoxForm.value | json }}
+</div>
